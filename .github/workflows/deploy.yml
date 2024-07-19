@@ -35,6 +35,9 @@ jobs:
         mkdir -p build_output
         rsync -av --exclude='build_output' --exclude='blog' --exclude='.git' --exclude='.github' . build_output/
 
+    - name: Create .nojekyll file
+      run: echo '' > build_output/.nojekyll
+
     - name: List build_output directory contents for debugging
       run: ls -R build_output
 
