@@ -31,8 +31,9 @@ jobs:
       run: bundle exec jekyll build -d ../_site/blog
 
     - name: Copy static HTML site
-      run: cp -r * _site/
-      shell: bash
+      run: |
+        mkdir -p _site
+        find . -maxdepth 1 -not -name _site -not -name blog -not -name .git -not -name .github -exec cp -r {} _site/ \;
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
