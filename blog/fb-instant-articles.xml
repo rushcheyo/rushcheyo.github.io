@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
     <title></title>
-    <link>https://rushcheyo.github.io/</link>
+    <link>https://xiaoyuchen.me/</link>
     <description>
       An academic blog of Xiaoyu
     </description>
@@ -10,7 +10,7 @@
         
             <item>
                 <title>Lower Bounds for Geometric Algorithms</title>
-                <link>https://rushcheyo.github.io//my-research/2023/12/09/geometric-lower-bound/</link>
+                <link>https://xiaoyuchen.me//my-research/2023/12/09/geometric-lower-bound/</link>
                 <content:encoded>
                     <![CDATA[
                     <p><span style="display: none;">
@@ -80,7 +80,7 @@
         
             <item>
                 <title>Streaming Euclidean Max-Cut</title>
-                <link>https://rushcheyo.github.io//my-research/2023/11/25/streaming-max-cut/</link>
+                <link>https://xiaoyuchen.me//my-research/2023/11/25/streaming-max-cut/</link>
                 <content:encoded>
                     <![CDATA[
                     <p><span style="display: none;">
