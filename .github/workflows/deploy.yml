@@ -28,16 +28,22 @@ jobs:
 
     - name: Build Jekyll blog
       working-directory: ./blog  # Change directory to blog
-      run: bundle exec jekyll build -d ../_site/blog
+      run: bundle exec jekyll build -d ../build_output/blog
 
     - name: Copy static HTML site
       run: |
-        mkdir -p _site
-        find . -maxdepth 1 -not -name _site -not -name blog -not -name .git -not -name .github -exec cp -r {} _site/ \;
+        mkdir -p build_output
+        rsync -av --exclude='build_output' --exclude='blog' --exclude='.git' --exclude='.github' . build_output/
+
+    - name: Create .nojekyll file
+      run: echo '' > build_output/.nojekyll
+
+    - name: List build_output directory contents for debugging
+      run: ls -R build_output
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GITHUB_TOKEN }}
         publish_branch: gh-pages
-        publish_dir: ./_site
+        publish_dir: ./build_output
