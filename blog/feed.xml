@@ -1,21 +1,160 @@
----
-layout: null
----
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>{{ site.title | xml_escape }}</title>
-    <description>{{ site.description | xml_escape }}</description>
-    <link>{{ site.url }}{{ site.baseurl }}/</link>
-    <atom:link href="{{ "/feed.xml" | prepend: site.baseurl | prepend: site.url }}" rel="self" type="application/rss+xml" />
-    {% for post in site.posts limit:10 %}
+    <title>Xiaoyu&apos;s Blog</title>
+    <description>An academic blog of Xiaoyu</description>
+    <link>https://rushcheyo.github.io//blog/</link>
+    <atom:link href="https://rushcheyo.github.io//blog/feed.xml" rel="self" type="application/rss+xml" />
+    
       <item>
-        <title>{{ post.title | xml_escape }}</title>
-        <description>{{ post.content | xml_escape }}</description>
-        <pubDate>{{ post.date | date: "%a, %d %b %Y %H:%M:%S %z" }}</pubDate>
-        <link>{{ post.url | prepend: site.baseurl | prepend: site.url }}</link>
-        <guid isPermaLink="true">{{ post.url | prepend: site.baseurl | prepend: site.url }}</guid>
+        <title>Lower Bounds for Geometric Algorithms</title>
+        <description>&lt;p&gt;&lt;span style=&quot;display: none;&quot;&gt;
+\(\DeclareMathOperator{\cut}{\text{cut}}
+\DeclareMathOperator{\maxcut}{\text{Max-Cut}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\poly}{\mathrm{poly}}
+\DeclareMathOperator{\diam}{\mathrm{diam}}
+\DeclareMathOperator{\polylog}{\poly \log}
+\DeclareMathOperator{\Unif}{\mathrm{Unif}}
+\DeclareMathOperator{\TVD}{\text{TVD}}\)
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;p&gt;In &lt;a href=&quot;/my-research/2023/11/25/streaming-max-cut/&quot;&gt;my last post&lt;/a&gt;, I defined the dynamic (or turnstile) streaming model. There is a related but weaker model called insertion-only (or vanilla) streams where deletions are forbidden. Though it sounds weird, but it is &lt;strong&gt;rare&lt;/strong&gt; when for some problems there are seperations between two models. Indeed, in common streaming algorithms, the most frequent primitives people use are sampling, maintaining some sums, or doing these after some hashing. All of them can be performed in dynamic streams.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Can we seperate them then?&lt;/strong&gt; Well, there is a simple geometric problem getting attention in the folklore. For a bounded subset $P \subset \mathbb R^d$, we can define its diameter $\diam(P) := \sup_{x,y \in P} d(x,y)$. Now consider the problem to approximate the diameter of the input streams within a constant ratio. This problem is very simple in insertion-only streams because one can compute $\max_{x \in P} d(x,P_1)$ where $P_1$ is the first point in the stream. Think for a moment and one can see that this is a $2$-approximation.&lt;/p&gt;
+
+&lt;p&gt;But things get more complicated in dynamic streams. You cannot store a point, &lt;em&gt;and then&lt;/em&gt; compute its distances with others. This can be explained by a powerful theorem characterizing dynamic streaming algorithms as &lt;em&gt;linear sketches&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem (Linear Sketches Are Optimal). &lt;sup id=&quot;fnref:LNW14&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:LNW14&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt;&lt;sup id=&quot;fnref:AHLW16&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:AHLW16&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;2&lt;/a&gt;&lt;/sup&gt;&lt;/strong&gt; Suppose there is a universe $[N]$ and a decisional problem computing a set function $f:\lbrace 0,1\rbrace^{[N]} \to \lbrace 0,1\rbrace$. Any dynamic streaming algorithms solving this problem in $S$ bits space with constant probability can be implemented by a probabilistic linear map $\mathbb Z^n \to \mathbb Z_{q_1}\otimes \cdots \mathbb Z_{q_{\tilde O(S)}}$ ($q$ is also stochastic) supported on $\tilde O(n)$ matrices with integer entries bounded by $\poly(n)$. &lt;em&gt;The theorem also holds for relational problems or general vectors instead of sets.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;The theorem implies that the algorithm must be “oblivious” to each point. Even though, there exists an algorithm with $O\left(n^{\varepsilon^2}\right)$ space for $O(1/\varepsilon)$-approximation. &lt;em&gt;TODO. Hint: JL&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Now we aim for a matching exponential lower bound. We construct a hard instance where the algorithm must distinguish between two cases.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Draw $v\sim N(0,I_d/d)$. Draw $n$ i.i.d. vectors $v_1,\ldots,v_{n-1}$ from $v+\varepsilon N(0,I_d/d)$. Let $P={v_1,\ldots,v_{n-1},v_n:=v}$. Then $\diam(P) \approx \varepsilon$&lt;/li&gt;
+  &lt;li&gt;Similar as Case 1, but replace $v_n$ with $-v$. Then $\diam(P) \approx 2-\varepsilon$.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;figure&gt;
+&lt;img src=&quot;/assets/2023-12-09-geometric-lower-bound-diameter-hard-instance.png&quot; style=&quot;display: block; margin-left: auto; margin-right: auto; width: 50%;&quot; /&gt;
+&lt;figcaption class=&quot;center&quot;&gt;Figure for Case 2&lt;/figcaption&gt;
+&lt;/figure&gt;
+
+&lt;p&gt;We should point out that, the figure is misleading, because $\varepsilon$-spherical cap should occupy $1 - \exp(-cd\varepsilon^2)$ fraction of the sphere&lt;sup id=&quot;fnref:constant&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:constant&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;3&lt;/a&gt;&lt;/sup&gt;.&lt;/p&gt;
+
+&lt;p&gt;By the linear sketches theorem and &lt;a href=&quot;https://en.wikipedia.org/wiki/Yao%27s_principle&quot;&gt;Yao’s minimax principle&lt;/a&gt;, we can model the streaming algorithm as a map $\varphi : \mathbb R^n \to G$ for some finite abelian group $G$. Denote $A := \sum_{i \le n} \varphi(v_i)$ and $B = A + (\varphi(-v) - \varphi(v))$. We want to prove that $A \approx_{\TVD} B$, where $\TVD$ stands for the &lt;a href=&quot;https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures&quot;&gt;total variation distance&lt;/a&gt;.&lt;/p&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:LNW14&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Yi Li, Huy L. Nguyễn, and David P. Woodruff. Turnstile streaming algorithms might as well be linear sketches. In &lt;em&gt;STOC&lt;/em&gt; 2014. &lt;a href=&quot;#fnref:LNW14&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:AHLW16&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;Yuqing Ai, Wei Hu, Yi Li, and David P Woodruff. New characterizations in turnstile streams with applications. In &lt;em&gt;Leibniz International Proceedings in Informatics&lt;/em&gt;, volume 50. Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik, 2016 &lt;a href=&quot;#fnref:AHLW16&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+    &lt;li id=&quot;fn:constant&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;We follow the convention that $C, c$ denotes positive absolute constants where $C$ is “large but bounded” and $c$ is “small but bounded away from $0$”. We might abuse of notation that using the same symbol for different absolute constants. &lt;a href=&quot;#fnref:constant&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 09 Dec 2023 00:00:00 +0000</pubDate>
+        <link>https://rushcheyo.github.io//blog/my-research/2023/12/09/geometric-lower-bound/</link>
+        <guid isPermaLink="true">https://rushcheyo.github.io//blog/my-research/2023/12/09/geometric-lower-bound/</guid>
       </item>
-    {% endfor %}
+    
+      <item>
+        <title>Streaming Euclidean Max-Cut</title>
+        <description>&lt;p&gt;&lt;span style=&quot;display: none;&quot;&gt;
+\(\DeclareMathOperator{\cut}{\text{cut}}
+\DeclareMathOperator{\maxcut}{\text{Max-Cut}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\poly}{\mathrm{poly}}
+\DeclareMathOperator{\polylog}{\poly \log}\)
+&lt;/span&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;the-euclidean-max-cut-problem&quot;&gt;The Euclidean Max-Cut problem&lt;/h2&gt;
+
+&lt;p&gt;In the classical graph Max-Cut problem, we are given an undirected and weighted graph $G(V,w)$. For all $S \subseteq V$, define $\cut(S) = \sum_{u\in S,v\notin S} w(u,v)$. We want to find $\maxcut(G)=\max_{S \subseteq V} \cut(S)$.&lt;/p&gt;
+
+&lt;p&gt;A special case of interest is that $V$ is a subset of a metric space $(T,d)$ and $w=d$.  In particular, if $(T,d) = (\mathbb R^d,\ell_p)$, the problem is called Euclidean Max-Cut.&lt;/p&gt;
+
+&lt;p&gt;The Max-Cut problem (even in the Euclidean case) does not admit an &lt;a href=&quot;https://en.wikipedia.org/wiki/Fully_polynomial-time_approximation_scheme&quot;&gt;FPTAS&lt;/a&gt;. Still, a 2-approximation is easy to compute. Let $S$ be a random subset that each $v \in V$ is included with probability $1/2$. Then, $\maxcut(G) \ge \E \cut(S) \ge \frac 1 2 \sum_{\lbrace u,v\rbrace} w(u,v)$.&lt;/p&gt;
+
+&lt;h2 id=&quot;the-geometric-streaming-model&quot;&gt;The geometric streaming model&lt;/h2&gt;
+
+&lt;p&gt;There are many different settings in the streaming model. We consider the strongest one here, i.e. the dynamic data streams.&lt;/p&gt;
+
+&lt;p&gt;The input $P \subseteq [\Delta]^d \subset \mathbb R^d$ is represented by an arbitrarily long sequence of insertions and deletions of points. The algorithm needs to cope with these updates and outputs $\maxcut(P)$ only for the final point set $P$.&lt;/p&gt;
+
+&lt;p&gt;Note that we only need to minimize the space complexity and the running time can be exponential.&lt;/p&gt;
+
+&lt;p&gt;Let $\lvert P\rvert = n$. We will present a $\poly(\log \Delta, 1/\varepsilon, d)$ space&lt;sup id=&quot;fnref:1&quot; role=&quot;doc-noteref&quot;&gt;&lt;a href=&quot;#fn:1&quot; class=&quot;footnote&quot; rel=&quot;footnote&quot;&gt;1&lt;/a&gt;&lt;/sup&gt; streaming algorithm approximating $\maxcut(P)$ to the $(1+\varepsilon)$ ratio. We can think $d = O(\log n / \varepsilon^2)$ because of &lt;a href=&quot;https://en.wikipedia.org/wiki/Johnson%E2%80%93Lindenstrauss_lemma&quot;&gt;JL lemma&lt;/a&gt;.  So, this is quite tight.&lt;/p&gt;
+
+&lt;h2 id=&quot;dimension-reduction&quot;&gt;Dimension reduction&lt;/h2&gt;
+
+&lt;p&gt;There is a so-called “&lt;a href=&quot;https://en.wikipedia.org/wiki/Curse_of_dimensionality&quot;&gt;curse of dimensionality&lt;/a&gt;” phenomenon which states that, most high-dimensional algorithms suffer from an $\exp(d)$ factor. For example, the &lt;a href=&quot;https://en.wikipedia.org/wiki/Quadtree&quot;&gt;quadtree&lt;/a&gt; will have $2^d$ children when $d$ grows. Recently, the community wants to get rid of this curse. Though we have succeed on Max-Cut, the problem is actually “not so hard” due to the following fact:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem (Constant-dimensional JL).&lt;/strong&gt; Let $P \subset \mathbb R^d$ equipped with $\ell_2$ metric. There exists a randomized map $\pi : \mathbb R^d \to \mathbb R^{d’}$ with $d’ = O(\log(\frac{1}{\varepsilon \delta})\varepsilon^{-2})$ such that $\maxcut(\pi(P)) \in (1 \pm \varepsilon) \maxcut(P)$ holds with probability $1-\delta$.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Proof.&lt;/strong&gt; Let $E = \lbrace \lbrace x,y\rbrace:d(\pi(x),\pi(y)) \notin (1 \pm \varepsilon)d(x,y) \rbrace$ be the distorted pairs. For all $S \subseteq P$,
+\(\begin{align*}
+\lvert \cut(\pi(S))-\cut(S) \rvert \le &amp;amp; \sum_{x \in S,y \notin S} \lvert d(x,y) - d(\pi(x),\pi(y)) \rvert\\
+			  \le &amp;amp;\varepsilon \cut(S) + \sum_{\{x,y\} \in E} \lvert d(x,y) - d(\pi(x),\pi(y))|\\
+			  \le &amp;amp;\varepsilon \cut(S) + \sum_{\{x,y\} \in P^2}\max(\lvert d(x,y) - d(\pi(x),\pi(y))\rvert - \varepsilon d(x,y),0)
+\end{align*}\)&lt;/p&gt;
+
+&lt;p&gt;It is sufficient to bound the second term. We construct $\pi$ by a $d\times d’$ matrix with i.i.d. $N(0,1/d)$ entries. We use a fact about Gaussians.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Fact.&lt;/strong&gt; For $X \sim N(0,I_{d’}/{d’})$, $\E \max(\lvert \lVert X \rVert - 1 \rvert - \varepsilon,0) \le \exp(-C\varepsilon^2d’) \le \varepsilon\delta$.&lt;/p&gt;
+
+&lt;p&gt;This implies $\E \max(\lvert d(x,y) - d(\pi(x),\pi(y))\rvert - \varepsilon d(x,y),0) \le \varepsilon \delta d(x,y)$ because we may assume $x - y = e_1$ by rotation and scaling.&lt;/p&gt;
+
+&lt;p&gt;Then, by Markov’s inequality, the second term is bounded by $\varepsilon \sum_{\lbrace x,y\rbrace\in P^2} d(x,y) \le 2\varepsilon \maxcut(P)$ with probability $1-\delta$. $\square$&lt;/p&gt;
+
+&lt;p&gt;Even though, if we directly reduce the dimension and invoke some $\exp(d)$ space algorithm, there is an undesired $\exp(1/\varepsilon^2)$ factor. It is non-trivial to avoid this.&lt;/p&gt;
+
+&lt;h2 id=&quot;randomized-tree-embedding&quot;&gt;Randomized tree embedding&lt;/h2&gt;
+
+&lt;p&gt;If we only want an $O(d \log \Delta)$ approximation, we can work on an edge-weighted tree $(T,w)$ by a randomized embedding $\pi : (\mathbb R^d,\ell_p) \to (T,d)$. The metric is $d(x,y)=\sum_{e\in x \leadsto y} w(e)$ where $x \leadsto y$ is consist of edges on the unique path from $x$ to $y$.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;TODO&lt;/em&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;importance-sampling&quot;&gt;Importance sampling&lt;/h2&gt;
+
+&lt;p&gt;There is an importance sampling technique converting the ratio to the complexity. Consider computing $X = \sum_{i=1}^n X_i$ where $X_i \ge 0$. The idea is to sample $i$ with probability approximately proportional to its contribution. If one can construct a random variable $I$ such that $\Pr[I = i] = p_i \ge \frac{X_i}{X \lambda}$, then $\E[X_I/p_I] = X$ and $\E[(X_I/p_I)^2] = \sum_i X_i^2/p_i \le \lambda X^2$. By Chebyshev’s inequality, taking $\lambda/\varepsilon^2$ samples of $I$ can estimate $X$ to $(1+\varepsilon)$ approximation.&lt;/p&gt;
+
+&lt;p&gt;In case of Max-Cut, since $\maxcut(P)$ is close to $\sum_{\lbrace x,y\rbrace} d(x,y)$, one may want to define the importance of $x$ as $d(x)=\sum_{y} d(x,y)$. This indeed provides good concentration:&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem (Sample Complexity of Max-Cut).&lt;/strong&gt;  Let $P$ be a subset of a metric space $(T,d)$, $\mu$ be a distribution over $T$ such that $\mu(p) \ge \frac{d(p)}{\lambda \sum_p d(p)}$ for some $\lambda \ge 1$. If we draw $O(\poly(\lambda/\varepsilon))$ samples $V$ from $\mu$, and build a vertex-weighted graph $G(V,\mu,d)$ where $\cut(S) = \sum_{x\in S,y \notin S} d(x,y)/\mu(x)\mu(y)$, then $\maxcut(G) \in (1 \pm \varepsilon)\maxcut(P)$ w.h.p.&lt;/p&gt;
+
+&lt;p&gt;This theorem can be proved by a simple black-box reduction to a classical sampling theorem on unweighted graphs. The idea is discretizing the weighted vertices and edges to many identical copies and then taking limits.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Theorem (Additive cut sparsification).&lt;/strong&gt; Let $G(V,E)$ be an unweighted graph, i.e. $\cut(S) = \lvert \lbrace\lbrace u,v\rbrace \in E : u \in S,v \notin S\rbrace\rvert$. Let $V’$ be an uniformly random subset of size $O(\varepsilon^{-4})$. Then, $\left\lvert \frac{\maxcut(V’)}{\lvert V’\rvert^2} - \frac{\maxcut(V)}{\lvert V \rvert^2} \right\rvert \le \varepsilon$ holds w.h.p.&lt;/p&gt;
+
+&lt;h2 id=&quot;quadtree-importance-sampler&quot;&gt;Quadtree importance sampler&lt;/h2&gt;
+
+&lt;p&gt;Recall that the tree embedding $\pi$ guarentees $d(x,y) \le d(\pi(x),\pi(y))$ and $\E d(\pi(x),\pi(y)) \le \lambda d(x,y)$ for small $\lambda$. By Markov’s inequality, $\sum_p d(\pi(p)) \le \lambda’ \sum_p d(p)$ and $\frac{d(\pi(p))}{\sum_pd(\pi(p))} \ge \frac{d(p)}{\lambda’ \sum_p(d(p))}$ hold w.h.p. for small $\lambda’$ .&lt;/p&gt;
+
+&lt;p&gt;Hence, if we construct a good importance sampler for $\lbrace d(\pi(p))\rbrace_p$, we will get an importance sampler for $\lbrace d(p)\rbrace_p$ automatically. This allows us to focus on implementing the importance sampler in the streaming model efficiently for the quadtree metric from now on.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;TODO&lt;/em&gt;&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;div class=&quot;footnotes&quot; role=&quot;doc-endnotes&quot;&gt;
+  &lt;ol&gt;
+    &lt;li id=&quot;fn:1&quot; role=&quot;doc-endnote&quot;&gt;
+      &lt;p&gt;One may think $\log \Delta = \polylog n$. And, you cannot hope for too good dependence on $1/\varepsilon$ because, you can recover the input by insert-and-querying each location if you can estimate $\maxcut(P)$ to a $\poly(1/n)$ precision. &lt;a href=&quot;#fnref:1&quot; class=&quot;reversefootnote&quot; role=&quot;doc-backlink&quot;&gt;&amp;#8617;&lt;/a&gt;&lt;/p&gt;
+    &lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/div&gt;
+</description>
+        <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
+        <link>https://rushcheyo.github.io//blog/my-research/2023/11/25/streaming-max-cut/</link>
+        <guid isPermaLink="true">https://rushcheyo.github.io//blog/my-research/2023/11/25/streaming-max-cut/</guid>
+      </item>
+    
   </channel>
 </rss>
