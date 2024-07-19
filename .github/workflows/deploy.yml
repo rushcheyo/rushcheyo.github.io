@@ -33,7 +33,8 @@ jobs:
     - name: Copy static HTML site
       run: |
         mkdir -p _site
-        find . -maxdepth 1 -not -name _site -not -name blog -not -name .git -not -name .github -exec cp -r {} _site/ \;
+        shopt -s extglob
+        cp -r !(._*|_site|blog|.git|.github) _site/
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
