@@ -33,7 +33,10 @@ jobs:
     - name: Copy static HTML site
       run: |
         mkdir -p _site
-        rsync -av --exclude '_site' --exclude 'blog' --exclude '.git' --exclude '.github' . _site/
+        rsync -av --exclude='_site' --exclude='blog' --exclude='.git' --exclude='.github' . _site/
+
+    - name: List _site directory contents for debugging
+      run: ls -R _site
 
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
