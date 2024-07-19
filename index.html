@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xiaoyu Chen</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        header {
+            background-color: #f4f4f4;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .profile-photo {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 20px;
+        }
+        .header-text {
+            text-align: left;
+        }
+        nav {
+            margin-top: 20px;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: #333;
+        }
+        nav a[href="/blog"] {
+          color: violet;
+          text-decoration: underline;
+        }
+        section {
+            margin-top: 30px;
+        }
+        h1, h2 {
+            color: #2c3e50;
+        }
+        #ipaLink {
+            text-decoration: none;
+        }
+        .experience {
+            margin-bottom: 20px;
+            display: flex;
+            align-items: flex-start;
+        }
+        .date {
+            font-weight: bold;
+            width: 6rem;
+            flex-shrink: 0;
+        }
+        .content {
+            display: flex;
+            align-items: flex-start;
+        }
+        .details {
+            flex-grow: 1;
+        }
+        .position {
+            font-weight: bold;
+        }
+        .course {
+            font-style: italic;
+        }
+        /* New styles for publications */
+        .publication {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .publication:last-child {
+            border-bottom: none;
+        }
+        .publication .title {
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+        .publication .authors {
+            font-style: italic;
+        }
+        .publication .journal {
+            color: #666;
+        }
+        .publication .links a {
+            color: #0066cc;
+            text-decoration: none;
+            margin-right: 10px;
+        }
+        .publication .links a:hover {
+            text-decoration: underline;
+        }
+        .publication .authors .highlight {
+            font-weight: bold;
+        }
+        .publication .authors .equal-contribution {
+            font-size: 0.9em;
+        }
+        .publication .footnote {
+            font-size: 0.9em;
+            color: #666;
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+    <script>
+        function toggleIPA() {
+            var ipaLink = document.getElementById("ipaLink");
+            if (ipaLink.innerHTML === "[show IPA]") {
+                ipaLink.innerHTML = "[ˈʃjɑʊ.y ˈt͡ʃən]";
+            } else {
+                ipaLink.innerHTML = "[show IPA]";
+            }
+        }
+    </script>
+</head>
+<body>
+    <header>
+        <img src="images/avatar.jpg" alt="Xiaoyu Chen" class="profile-photo">
+        <div class="header-text">
+            <h1>Xiaoyu Chen 陈晓雨</h1>
+            <p>Pronunciation: shyow-yoo chen <a href="javascript:void(0)" id="ipaLink" onclick="toggleIPA()">[show IPA]</a><span id="ipa"></span></p>
+            <p>If you struggled to pronounce it, just call me Sherry!</p>
+        </div>
+    </header>
+
+    <nav>
+        <a href="#about">About</a>
+        <a href="#research">Research</a>
+        <a href="#publications">Publications</a>
+        <a href="#teaching">Teaching</a>
+        <a href="#contact">Contact</a>
+        <a href="#misc">Misc.</a>
+        <a href="/blog">Blog</a>
+    </nav>
+
+    <section id="about">
+        <h2>About Me</h2>
+        <p>I am a third-year computer science undergraduate student at Peking University, enrolled in the <a href="https://cfcs.pku.edu.cn/english/research/turing_program/introduction1/index.htm">Turing Class</a> Honors Program.</p>
+        <p>During my undergraduate study, I have been fortunate to be advised by <a href="https://www.shaofengjiang.cn/">Shaofeng Jiang</a>, <a href="https://www.tongyangli.com/">Tongyang Li</a>, <a href="https://www.kuancheng88.com/">Kuan Cheng</a>, <a href="https://liutianren.com/">Tianren Liu</a>, among others.</p>
+        <p>Currently, I am visiting Toyota Technological Institute at Chicago (<a href="https://ttic.edu/">TTIC</a>) as an intern student, advised by <a href="https://www.ttic.edu/faculty/li/">Zhiyuan Li</a>.</p>
+    </section>
+
+    <section id="research">
+        <h2>Research</h2>
+        <p>I am broadly interested in understanding modern deep learning methods through a combination of theoretical and empirical analysis, with a current focus on optimization of neural networks.</p>
+        <p>Previously, I have worked on theoretical computer science (TCS), mainly on the topics of clustering algorithms.</p>
+    </section>
+
+    <section id="publications">
+        <h2>Publications</h2>
+        <div class="publication">
+          <div class="title">Near-Optimal Quantum Coreset Construction Algorithms for Clustering</div>
+          <div class="authors">
+              Yecheng Xue<span class="equal-contribution">*</span>,
+              <span class="highlight">Xiaoyu Chen<span class="equal-contribution">*</span></span>,
+              Tongyang Li,
+              Shaofeng H.-C. Jiang
+          </div>
+          <div class="journal">International Conference on Machine Learning (ICML), 2023</div>
+          <div class="links">
+              <a href="https://proceedings.mlr.press/v202/xue23a.html">[Conference]</a>
+              <a href="https://arxiv.org/abs/2306.02826">[arXiv]</a>
+              <a href="https://dblp.org/rec/conf/icml/XueCLJ23.bib">[BibTeX]</a>
+          </div>
+          <div class="footnote">* Equal contribution</div>
+        </div>
+        <div class="publication">
+          <div class="title">Streaming Euclidean Max-Cut: Dimension vs Data Reduction</div>
+          <div class="authors">
+              <span class="highlight">Xiaoyu Chen</span>,
+              Shaofeng H.-C. Jiang,
+              Robert Krauthgamer
+          </div>
+          <div class="journal">Proceedings of the 55th Annual ACM Symposium on Theory of Computing (STOC), 2023</div>
+          <div class="links">
+              <a href="https://doi.org/10.1145/3564246.3585170">[DOI]</a>
+              <a href="https://arxiv.org/abs/2211.07415">[arXiv]</a>
+              <a href="https://dblp.org/rec/conf/stoc/ChenJK23.bib">[BibTeX]</a>
+          </div>
+          <div class="footnote">Authors listed in alphabetical order, as per TCS convention.</div>
+      </div>
+    </section>
+
+    <section id="teaching">
+        <h2>Teaching</h2>
+        <div class="experience">
+          <div class="date">Fall 2023</div>
+          <div class="content">
+              <div class="details">
+                  <span class="position">Teaching Assistant for </span>
+                  <span class="course">Discrete Mathematics and Structures</span>
+                  (by <a href="https://liutianren.com/">Prof. Tianren Liu</a>), Peking University.
+              </div>
+          </div>
+      </div>
+    </section>
+
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Don't hesitate to reach out if you have any questions or just want to chat!</p>
+        <p>Email: <a href="mailto:yuchen21@stu.pku.edu.cn">yuchen21@stu.pku.edu.cn</a></p>
+        <p>Workspace (currently): 512-6 @ TTIC</p>
+        <p>pronouns: she/her</p>
+    </section>
+
+    <section id="misc">
+      <h2>Miscellaneous</h2>
+      <ul>
+        <li>This website is designed (mainly) by <a href="https://www.anthropic.com/news/claude-3-5-sonnet">claude-3.5-sonnet</a></li>
+      </ul>
+    </section>
+</body>
+</html>
