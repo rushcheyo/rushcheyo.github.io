@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Lower Bounds for Geometric Algorithms &#8211; Xiaoyu's Blog</title>
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="How do proving lower bounds for geometric algorithms demand more advanced isoperimetric inequalities?">
+    <link rel="manifest" type="application/manifest+json; charset=utf-8" href="/blog/manifest.json" />
+    <meta name="robots" content="all">
+    <meta name="author" content="Xiaoyu Chen">
+    
+    <meta name="keywords" content="my-research">
+    <link rel="canonical" href="https://rushcheyo.github.io//blog/my-research/2023/12/09/geometric-lower-bound/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Xiaoyu's Blog" href="/blog/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/pixyll.css?202407190511" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+    <script id="MathJax-script" async src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.js"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        chtml: {
+            scale: 0.9
+        },
+        svg: {
+            scale: 0.9
+        }
+      };
+      </script>
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Lower Bounds for Geometric Algorithms">
+    <meta property="og:description" content="An academic blog of Xiaoyu">
+    <meta property="og:url" content="https://rushcheyo.github.io//my-research/2023/12/09/geometric-lower-bound/">
+    <meta property="og:site_name" content="Xiaoyu&apos;s Blog">
+    
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="Lower Bounds for Geometric Algorithms" />
+    <meta name="twitter:description" content="How do proving lower bounds for geometric algorithms demand more advanced isoperimetric inequalities?" />
+    <meta name="twitter:url" content="https://rushcheyo.github.io//my-research/2023/12/09/geometric-lower-bound/" />
+    
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/blog/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/blog/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/blog/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/blog/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/blog/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/blog/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/blog/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/blog/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/blog/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/blog/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/blog/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/blog/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/blog/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+    
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="/blog/" class="site-title">Xiaoyu's Blog</a>
+      <nav class="site-nav">
+        
+
+
+
+    
+    
+    
+    
+        <a class="nav-link" href="/blog/blog/about/">about</a>
+    
+
+    
+
+    
+    
+    
+    
+        <a class="nav-link" href="/blog/blog/contact/">contact</a>
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Lower Bounds for Geometric Algorithms</h1>
+  <span class="post-meta">Dec 9, 2023</span><br>
+  
+  <span class="post-meta small">
+  
+    3 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <p><span style="display: none;">
+\(\DeclareMathOperator{\cut}{\text{cut}}
+\DeclareMathOperator{\maxcut}{\text{Max-Cut}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\poly}{\mathrm{poly}}
+\DeclareMathOperator{\diam}{\mathrm{diam}}
+\DeclareMathOperator{\polylog}{\poly \log}
+\DeclareMathOperator{\Unif}{\mathrm{Unif}}
+\DeclareMathOperator{\TVD}{\text{TVD}}\)
+</span></p>
+
+<p>In <a href="/my-research/2023/11/25/streaming-max-cut/">my last post</a>, I defined the dynamic (or turnstile) streaming model. There is a related but weaker model called insertion-only (or vanilla) streams where deletions are forbidden. Though it sounds weird, but it is <strong>rare</strong> when for some problems there are seperations between two models. Indeed, in common streaming algorithms, the most frequent primitives people use are sampling, maintaining some sums, or doing these after some hashing. All of them can be performed in dynamic streams.</p>
+
+<p><strong>Can we seperate them then?</strong> Well, there is a simple geometric problem getting attention in the folklore. For a bounded subset $P \subset \mathbb R^d$, we can define its diameter $\diam(P) := \sup_{x,y \in P} d(x,y)$. Now consider the problem to approximate the diameter of the input streams within a constant ratio. This problem is very simple in insertion-only streams because one can compute $\max_{x \in P} d(x,P_1)$ where $P_1$ is the first point in the stream. Think for a moment and one can see that this is a $2$-approximation.</p>
+
+<p>But things get more complicated in dynamic streams. You cannot store a point, <em>and then</em> compute its distances with others. This can be explained by a powerful theorem characterizing dynamic streaming algorithms as <em>linear sketches</em>.</p>
+
+<p><strong>Theorem (Linear Sketches Are Optimal). <sup id="fnref:LNW14" role="doc-noteref"><a href="#fn:LNW14" class="footnote" rel="footnote">1</a></sup><sup id="fnref:AHLW16" role="doc-noteref"><a href="#fn:AHLW16" class="footnote" rel="footnote">2</a></sup></strong> Suppose there is a universe $[N]$ and a decisional problem computing a set function $f:\lbrace 0,1\rbrace^{[N]} \to \lbrace 0,1\rbrace$. Any dynamic streaming algorithms solving this problem in $S$ bits space with constant probability can be implemented by a probabilistic linear map $\mathbb Z^n \to \mathbb Z_{q_1}\otimes \cdots \mathbb Z_{q_{\tilde O(S)}}$ ($q$ is also stochastic) supported on $\tilde O(n)$ matrices with integer entries bounded by $\poly(n)$. <em>The theorem also holds for relational problems or general vectors instead of sets.</em></p>
+
+<p>The theorem implies that the algorithm must be “oblivious” to each point. Even though, there exists an algorithm with $O\left(n^{\varepsilon^2}\right)$ space for $O(1/\varepsilon)$-approximation. <em>TODO. Hint: JL</em></p>
+
+<p>Now we aim for a matching exponential lower bound. We construct a hard instance where the algorithm must distinguish between two cases.</p>
+
+<ol>
+  <li>Draw $v\sim N(0,I_d/d)$. Draw $n$ i.i.d. vectors $v_1,\ldots,v_{n-1}$ from $v+\varepsilon N(0,I_d/d)$. Let $P={v_1,\ldots,v_{n-1},v_n:=v}$. Then $\diam(P) \approx \varepsilon$</li>
+  <li>Similar as Case 1, but replace $v_n$ with $-v$. Then $\diam(P) \approx 2-\varepsilon$.</li>
+</ol>
+
+<figure>
+<img src="/assets/2023-12-09-geometric-lower-bound-diameter-hard-instance.png" style="display: block; margin-left: auto; margin-right: auto; width: 50%;" />
+<figcaption class="center">Figure for Case 2</figcaption>
+</figure>
+
+<p>We should point out that, the figure is misleading, because $\varepsilon$-spherical cap should occupy $1 - \exp(-cd\varepsilon^2)$ fraction of the sphere<sup id="fnref:constant" role="doc-noteref"><a href="#fn:constant" class="footnote" rel="footnote">3</a></sup>.</p>
+
+<p>By the linear sketches theorem and <a href="https://en.wikipedia.org/wiki/Yao%27s_principle">Yao’s minimax principle</a>, we can model the streaming algorithm as a map $\varphi : \mathbb R^n \to G$ for some finite abelian group $G$. Denote $A := \sum_{i \le n} \varphi(v_i)$ and $B = A + (\varphi(-v) - \varphi(v))$. We want to prove that $A \approx_{\TVD} B$, where $\TVD$ stands for the <a href="https://en.wikipedia.org/wiki/Total_variation_distance_of_probability_measures">total variation distance</a>.</p>
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:LNW14" role="doc-endnote">
+      <p>Yi Li, Huy L. Nguyễn, and David P. Woodruff. Turnstile streaming algorithms might as well be linear sketches. In <em>STOC</em> 2014. <a href="#fnref:LNW14" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:AHLW16" role="doc-endnote">
+      <p>Yuqing Ai, Wei Hu, Yi Li, and David P Woodruff. New characterizations in turnstile streams with applications. In <em>Leibniz International Proceedings in Informatics</em>, volume 50. Schloss Dagstuhl-Leibniz-Zentrum fuer Informatik, 2016 <a href="#fnref:AHLW16" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+    <li id="fn:constant" role="doc-endnote">
+      <p>We follow the convention that $C, c$ denotes positive absolute constants where $C$ is “large but bounded” and $c$ is “small but bounded away from $0$”. We might abuse of notation that using the same symbol for different absolute constants. <a href="#fnref:constant" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    <small>
+      Theme crafted with &lt;3 by <a href="https://johno.com/">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+      &lt;/&gt; available on <a href="https://github.com/johno/pixyll">GitHub</a>.
+    </small>
+  </div>
+</footer>
+
+<script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/blog/sw.js")
+    }
+</script>
+
+</body>
+</html>

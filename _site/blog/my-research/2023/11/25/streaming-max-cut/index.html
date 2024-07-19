@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Streaming Euclidean Max-Cut &#8211; Xiaoyu's Blog</title>
+    <link rel="dns-prefetch" href="//fonts.googleapis.com">
+    <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
+    <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Resolving the Euclidean Max-Cut problem in the high-dimensional regime and streaming model">
+    <link rel="manifest" type="application/manifest+json; charset=utf-8" href="/blog/manifest.json" />
+    <meta name="robots" content="all">
+    <meta name="author" content="Xiaoyu Chen">
+    
+    <meta name="keywords" content="my-research">
+    <link rel="canonical" href="https://rushcheyo.github.io//blog/my-research/2023/11/25/streaming-max-cut/">
+    <link rel="alternate" type="application/rss+xml" title="RSS Feed for Xiaoyu's Blog" href="/blog/feed.xml" />
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/blog/css/pixyll.css?202407190511" type="text/css">
+
+    <!-- Fonts -->
+    
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
+    
+    
+
+    <!-- MathJax -->
+    
+    <script id="MathJax-script" async src="https://cdn.bootcdn.net/ajax/libs/mathjax/3.2.2/es5/tex-chtml.js"></script>
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [['$', '$'], ['\\(', '\\)']],
+          displayMath: [['$$', '$$'], ['\\[', '\\]']]
+        },
+        chtml: {
+            scale: 0.9
+        },
+        svg: {
+            scale: 0.9
+        }
+      };
+      </script>
+    
+
+    <!-- Verifications -->
+    
+    
+
+    <!-- Open Graph -->
+    <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
+    <meta property="og:locale" content="en_US">
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Streaming Euclidean Max-Cut">
+    <meta property="og:description" content="An academic blog of Xiaoyu">
+    <meta property="og:url" content="https://rushcheyo.github.io//my-research/2023/11/25/streaming-max-cut/">
+    <meta property="og:site_name" content="Xiaoyu&apos;s Blog">
+    
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    
+    <meta name="twitter:title" content="Streaming Euclidean Max-Cut" />
+    <meta name="twitter:description" content="Resolving the Euclidean Max-Cut problem in the high-dimensional regime and streaming model" />
+    <meta name="twitter:url" content="https://rushcheyo.github.io//my-research/2023/11/25/streaming-max-cut/" />
+    
+
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="57x57" href="/blog/apple-touch-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="/blog/apple-touch-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="/blog/apple-touch-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="/blog/apple-touch-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="/blog/apple-touch-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="/blog/apple-touch-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="/blog/apple-touch-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="/blog/apple-touch-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/blog/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" href="/blog/favicon-192x192.png" sizes="192x192">
+    <link rel="icon" type="image/png" href="/blog/favicon-160x160.png" sizes="160x160">
+    <link rel="icon" type="image/png" href="/blog/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/png" href="/blog/favicon-16x16.png" sizes="16x16">
+    <link rel="icon" type="image/png" href="/blog/favicon-32x32.png" sizes="32x32">
+    <link rel="shortcut icon" href="/blog/favicon.ico">
+
+    
+</head>
+
+<body class="site">
+  
+	
+
+  <div class="site-wrap">
+    <header class="site-header px2 px-responsive">
+  <div class="mt2 wrap">
+    <div class="measure">
+      <a href="/blog/" class="site-title">Xiaoyu's Blog</a>
+      <nav class="site-nav">
+        
+
+
+
+    
+    
+    
+    
+        <a class="nav-link" href="/blog/blog/about/">about</a>
+    
+
+    
+
+    
+    
+    
+    
+        <a class="nav-link" href="/blog/blog/contact/">contact</a>
+    
+
+    
+
+
+      </nav>
+      <div class="clearfix"></div>
+      
+    </div>
+  </div>
+</header>
+
+
+    <div class="post p2 p-responsive wrap" role="main">
+      <div class="measure">
+        
+
+
+<div class="post-header mb2">
+  <h1>Streaming Euclidean Max-Cut</h1>
+  <span class="post-meta">Nov 25, 2023</span><br>
+  
+  <span class="post-meta small">
+  
+    5 minute read
+  
+  </span>
+</div>
+
+<article class="post-content">
+  <p><span style="display: none;">
+\(\DeclareMathOperator{\cut}{\text{cut}}
+\DeclareMathOperator{\maxcut}{\text{Max-Cut}}
+\DeclareMathOperator{\E}{\mathbb{E}}
+\DeclareMathOperator{\poly}{\mathrm{poly}}
+\DeclareMathOperator{\polylog}{\poly \log}\)
+</span></p>
+
+<h2 id="the-euclidean-max-cut-problem">The Euclidean Max-Cut problem</h2>
+
+<p>In the classical graph Max-Cut problem, we are given an undirected and weighted graph $G(V,w)$. For all $S \subseteq V$, define $\cut(S) = \sum_{u\in S,v\notin S} w(u,v)$. We want to find $\maxcut(G)=\max_{S \subseteq V} \cut(S)$.</p>
+
+<p>A special case of interest is that $V$ is a subset of a metric space $(T,d)$ and $w=d$.  In particular, if $(T,d) = (\mathbb R^d,\ell_p)$, the problem is called Euclidean Max-Cut.</p>
+
+<p>The Max-Cut problem (even in the Euclidean case) does not admit an <a href="https://en.wikipedia.org/wiki/Fully_polynomial-time_approximation_scheme">FPTAS</a>. Still, a 2-approximation is easy to compute. Let $S$ be a random subset that each $v \in V$ is included with probability $1/2$. Then, $\maxcut(G) \ge \E \cut(S) \ge \frac 1 2 \sum_{\lbrace u,v\rbrace} w(u,v)$.</p>
+
+<h2 id="the-geometric-streaming-model">The geometric streaming model</h2>
+
+<p>There are many different settings in the streaming model. We consider the strongest one here, i.e. the dynamic data streams.</p>
+
+<p>The input $P \subseteq [\Delta]^d \subset \mathbb R^d$ is represented by an arbitrarily long sequence of insertions and deletions of points. The algorithm needs to cope with these updates and outputs $\maxcut(P)$ only for the final point set $P$.</p>
+
+<p>Note that we only need to minimize the space complexity and the running time can be exponential.</p>
+
+<p>Let $\lvert P\rvert = n$. We will present a $\poly(\log \Delta, 1/\varepsilon, d)$ space<sup id="fnref:1" role="doc-noteref"><a href="#fn:1" class="footnote" rel="footnote">1</a></sup> streaming algorithm approximating $\maxcut(P)$ to the $(1+\varepsilon)$ ratio. We can think $d = O(\log n / \varepsilon^2)$ because of <a href="https://en.wikipedia.org/wiki/Johnson%E2%80%93Lindenstrauss_lemma">JL lemma</a>.  So, this is quite tight.</p>
+
+<h2 id="dimension-reduction">Dimension reduction</h2>
+
+<p>There is a so-called “<a href="https://en.wikipedia.org/wiki/Curse_of_dimensionality">curse of dimensionality</a>” phenomenon which states that, most high-dimensional algorithms suffer from an $\exp(d)$ factor. For example, the <a href="https://en.wikipedia.org/wiki/Quadtree">quadtree</a> will have $2^d$ children when $d$ grows. Recently, the community wants to get rid of this curse. Though we have succeed on Max-Cut, the problem is actually “not so hard” due to the following fact:</p>
+
+<p><strong>Theorem (Constant-dimensional JL).</strong> Let $P \subset \mathbb R^d$ equipped with $\ell_2$ metric. There exists a randomized map $\pi : \mathbb R^d \to \mathbb R^{d’}$ with $d’ = O(\log(\frac{1}{\varepsilon \delta})\varepsilon^{-2})$ such that $\maxcut(\pi(P)) \in (1 \pm \varepsilon) \maxcut(P)$ holds with probability $1-\delta$.</p>
+
+<p><strong>Proof.</strong> Let $E = \lbrace \lbrace x,y\rbrace:d(\pi(x),\pi(y)) \notin (1 \pm \varepsilon)d(x,y) \rbrace$ be the distorted pairs. For all $S \subseteq P$,
+\(\begin{align*}
+\lvert \cut(\pi(S))-\cut(S) \rvert \le &amp; \sum_{x \in S,y \notin S} \lvert d(x,y) - d(\pi(x),\pi(y)) \rvert\\
+			  \le &amp;\varepsilon \cut(S) + \sum_{\{x,y\} \in E} \lvert d(x,y) - d(\pi(x),\pi(y))|\\
+			  \le &amp;\varepsilon \cut(S) + \sum_{\{x,y\} \in P^2}\max(\lvert d(x,y) - d(\pi(x),\pi(y))\rvert - \varepsilon d(x,y),0)
+\end{align*}\)</p>
+
+<p>It is sufficient to bound the second term. We construct $\pi$ by a $d\times d’$ matrix with i.i.d. $N(0,1/d)$ entries. We use a fact about Gaussians.</p>
+
+<p><strong>Fact.</strong> For $X \sim N(0,I_{d’}/{d’})$, $\E \max(\lvert \lVert X \rVert - 1 \rvert - \varepsilon,0) \le \exp(-C\varepsilon^2d’) \le \varepsilon\delta$.</p>
+
+<p>This implies $\E \max(\lvert d(x,y) - d(\pi(x),\pi(y))\rvert - \varepsilon d(x,y),0) \le \varepsilon \delta d(x,y)$ because we may assume $x - y = e_1$ by rotation and scaling.</p>
+
+<p>Then, by Markov’s inequality, the second term is bounded by $\varepsilon \sum_{\lbrace x,y\rbrace\in P^2} d(x,y) \le 2\varepsilon \maxcut(P)$ with probability $1-\delta$. $\square$</p>
+
+<p>Even though, if we directly reduce the dimension and invoke some $\exp(d)$ space algorithm, there is an undesired $\exp(1/\varepsilon^2)$ factor. It is non-trivial to avoid this.</p>
+
+<h2 id="randomized-tree-embedding">Randomized tree embedding</h2>
+
+<p>If we only want an $O(d \log \Delta)$ approximation, we can work on an edge-weighted tree $(T,w)$ by a randomized embedding $\pi : (\mathbb R^d,\ell_p) \to (T,d)$. The metric is $d(x,y)=\sum_{e\in x \leadsto y} w(e)$ where $x \leadsto y$ is consist of edges on the unique path from $x$ to $y$.</p>
+
+<p><em>TODO</em></p>
+
+<h2 id="importance-sampling">Importance sampling</h2>
+
+<p>There is an importance sampling technique converting the ratio to the complexity. Consider computing $X = \sum_{i=1}^n X_i$ where $X_i \ge 0$. The idea is to sample $i$ with probability approximately proportional to its contribution. If one can construct a random variable $I$ such that $\Pr[I = i] = p_i \ge \frac{X_i}{X \lambda}$, then $\E[X_I/p_I] = X$ and $\E[(X_I/p_I)^2] = \sum_i X_i^2/p_i \le \lambda X^2$. By Chebyshev’s inequality, taking $\lambda/\varepsilon^2$ samples of $I$ can estimate $X$ to $(1+\varepsilon)$ approximation.</p>
+
+<p>In case of Max-Cut, since $\maxcut(P)$ is close to $\sum_{\lbrace x,y\rbrace} d(x,y)$, one may want to define the importance of $x$ as $d(x)=\sum_{y} d(x,y)$. This indeed provides good concentration:</p>
+
+<p><strong>Theorem (Sample Complexity of Max-Cut).</strong>  Let $P$ be a subset of a metric space $(T,d)$, $\mu$ be a distribution over $T$ such that $\mu(p) \ge \frac{d(p)}{\lambda \sum_p d(p)}$ for some $\lambda \ge 1$. If we draw $O(\poly(\lambda/\varepsilon))$ samples $V$ from $\mu$, and build a vertex-weighted graph $G(V,\mu,d)$ where $\cut(S) = \sum_{x\in S,y \notin S} d(x,y)/\mu(x)\mu(y)$, then $\maxcut(G) \in (1 \pm \varepsilon)\maxcut(P)$ w.h.p.</p>
+
+<p>This theorem can be proved by a simple black-box reduction to a classical sampling theorem on unweighted graphs. The idea is discretizing the weighted vertices and edges to many identical copies and then taking limits.</p>
+
+<p><strong>Theorem (Additive cut sparsification).</strong> Let $G(V,E)$ be an unweighted graph, i.e. $\cut(S) = \lvert \lbrace\lbrace u,v\rbrace \in E : u \in S,v \notin S\rbrace\rvert$. Let $V’$ be an uniformly random subset of size $O(\varepsilon^{-4})$. Then, $\left\lvert \frac{\maxcut(V’)}{\lvert V’\rvert^2} - \frac{\maxcut(V)}{\lvert V \rvert^2} \right\rvert \le \varepsilon$ holds w.h.p.</p>
+
+<h2 id="quadtree-importance-sampler">Quadtree importance sampler</h2>
+
+<p>Recall that the tree embedding $\pi$ guarentees $d(x,y) \le d(\pi(x),\pi(y))$ and $\E d(\pi(x),\pi(y)) \le \lambda d(x,y)$ for small $\lambda$. By Markov’s inequality, $\sum_p d(\pi(p)) \le \lambda’ \sum_p d(p)$ and $\frac{d(\pi(p))}{\sum_pd(\pi(p))} \ge \frac{d(p)}{\lambda’ \sum_p(d(p))}$ hold w.h.p. for small $\lambda’$ .</p>
+
+<p>Hence, if we construct a good importance sampler for $\lbrace d(\pi(p))\rbrace_p$, we will get an importance sampler for $\lbrace d(p)\rbrace_p$ automatically. This allows us to focus on implementing the importance sampler in the streaming model efficiently for the quadtree metric from now on.</p>
+
+<p><em>TODO</em></p>
+
+<hr />
+
+<div class="footnotes" role="doc-endnotes">
+  <ol>
+    <li id="fn:1" role="doc-endnote">
+      <p>One may think $\log \Delta = \polylog n$. And, you cannot hope for too good dependence on $1/\varepsilon$ because, you can recover the input by insert-and-querying each location if you can estimate $\maxcut(P)$ to a $\poly(1/n)$ precision. <a href="#fnref:1" class="reversefootnote" role="doc-backlink">&#8617;</a></p>
+    </li>
+  </ol>
+</div>
+
+</article>
+
+
+
+
+
+
+
+
+
+
+
+      </div>
+    </div>
+  </div>
+
+  <footer class="center">
+  <div class="measure">
+    <small>
+      Theme crafted with &lt;3 by <a href="https://johno.com/">John Otander</a> (<a href="https://twitter.com/4lpine">@4lpine</a>).<br>
+      &lt;/&gt; available on <a href="https://github.com/johno/pixyll">GitHub</a>.
+    </small>
+  </div>
+</footer>
+
+<script type="text/javascript">
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("/blog/sw.js")
+    }
+</script>
+
+</body>
+</html>
