@@ -3,8 +3,8 @@
   <channel>
     <title>Xiaoyu&apos;s Blog</title>
     <description>An academic blog of Xiaoyu</description>
-    <link>https://xiaoyuchen.me//blog/</link>
-    <atom:link href="https://xiaoyuchen.me//blog/feed.xml" rel="self" type="application/rss+xml" />
+    <link>https://xiaoyuchen.me/blog/</link>
+    <atom:link href="https://xiaoyuchen.me/blog/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
         <title>Lower Bounds for Geometric Algorithms</title>
@@ -60,8 +60,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Sat, 09 Dec 2023 00:00:00 +0000</pubDate>
-        <link>https://xiaoyuchen.me//blog/my-research/2023/12/09/geometric-lower-bound/</link>
-        <guid isPermaLink="true">https://xiaoyuchen.me//blog/my-research/2023/12/09/geometric-lower-bound/</guid>
+        <link>https://xiaoyuchen.me/blog/my-research/2023/12/09/geometric-lower-bound/</link>
+        <guid isPermaLink="true">https://xiaoyuchen.me/blog/my-research/2023/12/09/geometric-lower-bound/</guid>
       </item>
     
       <item>
@@ -152,8 +152,8 @@
 &lt;/div&gt;
 </description>
         <pubDate>Sat, 25 Nov 2023 00:00:00 +0000</pubDate>
-        <link>https://xiaoyuchen.me//blog/my-research/2023/11/25/streaming-max-cut/</link>
-        <guid isPermaLink="true">https://xiaoyuchen.me//blog/my-research/2023/11/25/streaming-max-cut/</guid>
+        <link>https://xiaoyuchen.me/blog/my-research/2023/11/25/streaming-max-cut/</link>
+        <guid isPermaLink="true">https://xiaoyuchen.me/blog/my-research/2023/11/25/streaming-max-cut/</guid>
       </item>
     
   </channel>
