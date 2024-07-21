@@ -1,10 +1,10 @@
-var CACHE_NAME = "xiaoyu-me-20240720053323";
+var CACHE_NAME = "xiaoyu-me-20240721215928";
 
 self.addEventListener("install", function(e) {
   e.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       return cache.addAll([
-        "/blog/css/pixyll.css?202407200533",
+        "/blog/css/pixyll.css?202407212159",
         "/blog/"
       ]);
     })
