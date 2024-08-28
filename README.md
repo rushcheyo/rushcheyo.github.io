@@ -1,2 +1,3 @@
-# rushcheyo.github.io
+# xiaoyuchen.me
+
 my academic personal website
