@@ -20,40 +20,33 @@
         }
 
         .header {
-            position: relative;
-            height: 180px;
-            margin-bottom: 50px;
+            display: flex;
+            justify-content: center;
+            margin: 0px 0;
         }
 
-        .photo-container {
-            position: absolute;
-            left: 20%;
-            top: 60%;
-            transform: translateY(-50%);
+        .profile-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
         }
 
         .profile-photo {
-            width: 160px;
-            height: 160px;
-            /* border-radius: 50%; */
+            width: 150px;
+            height: 150px;
+            border-radius: 30%;
+            margin-right: 20px;
         }
 
-        .name-container {
-            position: absolute;
-            left: 60%;
-            top: 60%;
-            transform: translate(-50%, -50%);
-            text-align: center;
-            width: auto;
-        }
-
-        .name-container h1 {
+     .name-container h1 {
             margin-bottom: 0px;
             border-bottom: none;
         }
 
         .name-container p {
             margin-top: 0;
+            text-align: center;
             font-size: 2rem;
             color: #4a5568;
         }
@@ -201,8 +194,9 @@
     <section id="about">
         <h2>About Me</h2>
         <p>I'm a final-year CS undergrad at <a
-            href="https://cfcs.pku.edu.cn/english/research/turing_program/introduction1/index.htm">Turing
-            Class</a>, <b>Peking University</b>. <a href="CV.pdf">My CV (dated Dec 2024)</a></p>
+                href="https://cfcs.pku.edu.cn/english/research/turing_program/introduction1/index.htm">Turing
+                Class</a>, <b>Peking University</b>. <a href="CV.pdf">My CV
+                (dated Dec 2024)</a></p>
         <p>My primary research interests
             lie at the intersection of <b>TCS & math</b> with diverse topics
             including high-dimensional probability, boolean
