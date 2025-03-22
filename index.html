@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Xiaoyu Chen 陈晓雨</title>
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap"
+        rel="stylesheet">
     <style>
         body {
             font-family: 'Lato', sans-serif;
@@ -15,102 +18,146 @@
             margin: 0 auto;
             padding: 20px;
         }
-        header {
-            background-color: #f4f4f4;
-            padding: 20px;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+
+        .header {
+            position: relative;
+            height: 180px;
+            margin-bottom: 50px;
         }
+
+        .photo-container {
+            position: absolute;
+            left: 20%;
+            top: 60%;
+            transform: translateY(-50%);
+        }
+
         .profile-photo {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 20px;
+            width: 160px;
+            height: 160px;
+            /* border-radius: 50%; */
         }
-        .header-text {
-            text-align: left;
+
+        .name-container {
+            position: absolute;
+            left: 60%;
+            top: 60%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            width: auto;
         }
+
+        .name-container h1 {
+            margin-bottom: 0px;
+            border-bottom: none;
+        }
+
+        .name-container p {
+            margin-top: 0;
+            font-size: 2rem;
+            color: #4a5568;
+        }
+
         nav {
             margin-top: 20px;
         }
+
         nav a {
             margin-right: 15px;
             /* text-decoration: underline; */
             color: #333;
         }
+
         nav a[href="/blog"] {
-          color: violet;
-          /* text-decoration: underline; */
+            color: violet;
+            /* text-decoration: underline; */
         }
+
         section {
-            margin-top: 30px;
+            margin-top: 0px;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             color: #2c3e50;
             border-bottom: 2px solid #333;
         }
+
         #ipaLink {
             text-decoration: none;
         }
+
         .experience {
             margin-bottom: 20px;
             display: flex;
             align-items: flex-start;
         }
+
         .date {
             font-weight: bold;
             width: 10rem;
             flex-shrink: 0;
         }
+
         .content {
             display: flex;
             align-items: flex-start;
         }
+
         .details {
             flex-grow: 1;
         }
+
         .position {
             font-weight: bold;
         }
+
         .course {
             font-style: italic;
         }
+
         /* New styles for publications */
         .publication {
             margin-bottom: 20px;
             padding-bottom: 20px;
             border-bottom: 1px solid #eee;
         }
+
         .publication:last-child {
             border-bottom: none;
         }
+
         .publication .title {
             font-weight: bold;
             font-size: 1.1em;
         }
+
         .publication .authors {
             font-style: italic;
         }
+
         .publication .journal {
             color: #666;
         }
+
         .publication .links a {
             color: #0066cc;
             text-decoration: none;
             margin-right: 10px;
         }
+
         .publication .links a:hover {
             text-decoration: underline;
         }
+
         .publication .authors .highlight {
             font-weight: bold;
         }
+
         .publication .authors .equal-contribution {
             font-size: 0.9em;
         }
+
         .publication .footnote {
             font-size: 0.9em;
             color: #666;
@@ -129,99 +176,105 @@
         }
     </script>
 </head>
-<body>
-    <header>
-        <img src="images/avatar.jpg" alt="Xiaoyu Chen" class="profile-photo">
-        <div class="header-text">
-            <h1>Xiaoyu Chen 陈晓雨</h1>
-            <p>Pronunciation: sheow-yoo chen <a href="javascript:void(0)" id="ipaLink" onclick="toggleIPA()">[show IPA]</a><span id="ipa"></span></p>
-            <p>If you struggle to pronounce it, just call me Sherry!</p>
-        </div>
-    </header>
 
-    <nav>
+<body>
+    <div class="header">
+        <div class="photo-container">
+            <img src="images/avatar.jpg" alt="Xiaoyu Chen"
+                class="profile-photo">
+        </div>
+        <div class="name-container">
+            <h1>Xiaoyu Chen</h1>
+            <p>Sherry</p>
+        </div>
+    </div>
+    <!-- <nav>
         <a href="#about">About</a>
         <a href="#publications">Publications</a>
         <a href="#teaching">Teaching</a>
-        <!-- <a href="#contact">Contact</a> -->
+        <a href="#contact">Contact</a>
         <a href="#awards">Awards</a>
         <a href="#misc">Misc.</a>
         <a href="/blog">Blog</a>
-    </nav>
+    </nav> -->
 
     <section id="about">
         <h2>About Me</h2>
-        <p>I'm a final-year CS undergrad at <b>Peking University</b> and a member of the <a href="https://cfcs.pku.edu.cn/english/research/turing_program/introduction1/index.htm">Turing Class</a>.</p>
-        <p>Generally speaking, fundamental mathematical questions and objects arising in computer science excite me. My primary research interests lie at the intersection of TCS and math with diverse topics including high-dimensional probability and geometry, boolean function analysis, quantum learning, high-dimensional expanders, etc.</p>
-        <p>I'm also interested in scientifically understanding mysterious phenomena in deep learning and I wish I could have more bandwidth and opportunities to understand so many mysteries in the world.</p>
-        <p>During my undergraduate studies, I'm fortunate to learn from great people across various fields to understand my interests more clearly. I was advised by <a href="https://www.shaofengjiang.cn/">Shaofeng Jiang</a> on streaming geometric algorithms, <a href="https://www.tongyangli.com/">Tongyang Li</a> on quantum algorithms, and <a href="https://zhiyuanli.ttic.edu/">Zhiyuan Li</a> on deep learning theory.</p>
-        <p>If you want to chat, feel free to reach out at <a href="mailto:yuchen21@stu.pku.edu.cn">yuchen21@stu.pku.edu.cn</a>!</p>
-    </section>
-
-    <section id="experiences">
-        <h2>Experiences</h2>
-        <div class="experience">
-            <div class="date">Summer 2024</div>
-            <div class="content">
-                <div class="details">
-                    <b>Research Intern</b> at <a href="https://ttic.edu/">TTIC</a>, advised by <a href="https://zhiyuanli.ttic.edu/">Zhiyuan Li</a>.
-                </div>
-            </div>
-        </div>
-        <div class="experience">
-            <div class="date">2022-2024</div>
-                <div class="details">
-                    Various <b>TCS Research Collaborations</b>, with <a href="https://www.shaofengjiang.cn/">Shaofeng Jiang</a> on streaming geometric algorithms, <a href="https://www.tongyangli.com/">Tongyang Li</a> on quantum algorithms, <a href="https://liutianren.com/">Tianren Liu</a> on security proofs of practical block ciphers, and <a href="https://www.kuancheng88.com/">Kuan Cheng</a> on coding theory.
-                </div>
-            </div>
-        </div>
+        <p>I'm a final-year CS undergrad at <a
+            href="https://cfcs.pku.edu.cn/english/research/turing_program/introduction1/index.htm">Turing
+            Class</a>, <b>Peking University</b>. <a href="CV.pdf">My CV (dated Dec 2024)</a></p>
+        <p>My primary research interests
+            lie at the intersection of <b>TCS & math</b> with diverse topics
+            including high-dimensional probability, boolean
+            analysis, quantum, expanders,
+            etc. I'm also interested in understanding mysterious
+            phenomena in deep learning.</p>
+        <p>During my undergraduate studies, I was fortunate to learn from great
+            people across various fields to understand my interests more
+            clearly. I was advised by <a
+                href="https://www.shaofengjiang.cn/">Shaofeng Jiang</a> on
+            streaming geometric algorithms, <a
+                href="https://www.tongyangli.com/">Tongyang Li</a> on quantum
+            algorithms, and <a href="https://zhiyuanli.ttic.edu/">Zhiyuan Li</a>
+            on deep learning theory.</p>
+        <p>If you want to chat, feel free to reach out at <a
+                href="mailto:yuchen21@stu.pku.edu.cn">yuchen21@stu.pku.edu.cn</a>!
+        </p>
     </section>
 
     <section id="publications">
         <h2>Publications</h2>
         <div class="publication">
-          <div class="title">Near-Optimal Quantum Coreset Construction Algorithms for Clustering</div>
-          <div class="authors">
-              Yecheng Xue<span class="equal-contribution">*</span>,
-              <span class="highlight">Xiaoyu Chen<span class="equal-contribution">*</span></span>,
-              Tongyang Li,
-              Shaofeng H.-C. Jiang
-          </div>
-          <div class="journal">ICML 2023</div>
-          <div class="links">
-              <a href="https://proceedings.mlr.press/v202/xue23a.html">[Conference]</a>
-              <a href="https://arxiv.org/abs/2306.02826">[arXiv]</a>
-              <a href="https://dblp.org/rec/conf/icml/XueCLJ23.bib">[BibTeX]</a>
-          </div>
+            <div class="title">Near-Optimal Quantum Coreset Construction
+                Algorithms for Clustering</div>
+            <div class="authors">
+                Yecheng Xue<span class="equal-contribution">*</span>,
+                <span class="highlight">Xiaoyu Chen<span
+                        class="equal-contribution">*</span></span>,
+                Tongyang Li,
+                Shaofeng H.-C. Jiang
+            </div>
+            <div class="journal">ICML 2023</div>
+            <div class="links">
+                <a
+                    href="https://proceedings.mlr.press/v202/xue23a.html">[Conference]</a>
+                <a href="https://arxiv.org/abs/2306.02826">[arXiv]</a>
+                <a
+                    href="https://dblp.org/rec/conf/icml/XueCLJ23.bib">[BibTeX]</a>
+            </div>
         </div>
         <div class="publication">
-          <div class="title">Streaming Euclidean Max-Cut: Dimension vs Data Reduction</div>
-          <div class="authors">
-              <span class="highlight">Xiaoyu Chen</span>,
-              Shaofeng H.-C. Jiang,
-              Robert Krauthgamer
-          </div>
-          <div class="journal">STOC 2023</div>
-          <div class="links">
-              <a href="https://doi.org/10.1145/3564246.3585170">[DOI]</a>
-              <a href="https://arxiv.org/abs/2211.05293">[arXiv]</a>
-              <a href="https://dblp.org/rec/conf/stoc/ChenJK23.bib">[BibTeX]</a>
-          </div>
-      </div>
+            <div class="title">Streaming Euclidean Max-Cut: Dimension vs Data
+                Reduction</div>
+            <div class="authors">
+                <span class="highlight">Xiaoyu Chen</span>,
+                Shaofeng H.-C. Jiang,
+                Robert Krauthgamer
+            </div>
+            <div class="journal">STOC 2023</div>
+            <div class="links">
+                <a href="https://doi.org/10.1145/3564246.3585170">[DOI]</a>
+                <a href="https://arxiv.org/abs/2211.05293">[arXiv]</a>
+                <a
+                    href="https://dblp.org/rec/conf/stoc/ChenJK23.bib">[BibTeX]</a>
+            </div>
+        </div>
     </section>
 
     <section id="teaching">
         <h2>Teaching</h2>
         <div class="experience">
-          <div class="date">Fall 2023</div>
-          <div class="content">
-              <div class="details">
-                  <span class="position">Teaching Assistant for </span>
-                  <span class="course">Discrete Mathematics and Structures</span>
-                  (taught by <a href="https://liutianren.com/">Tianren Liu</a>), Peking University.
-              </div>
-          </div>
-      </div>
+            <div class="date">Fall 2023</div>
+            <div class="content">
+                <div class="details">
+                    <span class="position">Teaching Assistant for </span>
+                    <span class="course">Discrete Mathematics and
+                        Structures</span>
+                    (taught by <a href="https://liutianren.com/">Tianren
+                        Liu</a>), Peking University.
+                </div>
+            </div>
+        </div>
     </section>
 
     <section id="awards">
@@ -238,18 +291,30 @@
             <div class="date">2019</div>
             <div class="content">
                 <div class="details">
-                    <b>Gold medal</b>, Chinese National Olympiad in Informatics (<b>CNOI</b>, top 50 in China)
+                    <b>Gold medal</b>, Chinese National Olympiad in Informatics
+                    (<b>CNOI</b>, top 50 in China)
                 </div>
             </div>
         </div>
 
-    <section id="misc">
-      <h2>Miscellaneous</h2>
-      <ul>
-        <li>This website was (mostly) designed by claude-3.5-sonnet.</li>
-        <li>I'm a player of <a href="https://en.wikipedia.org/wiki/Go_(game)">Go</a> and always looking to improve. AlphaGo is one of my motivations to study AI.</li>
-        <li>Besides my academic pursuits, I enjoy learning across different fields - everything from the humanities and non-fiction (literature, economics, history, etc.) to natural sciences (physics, linguistics, etc.) through books, podcasts, and documentaries. I want to understand perspectives and life experiences of people from different backgrounds, especially minority groups.</li>
-      </ul>
-    </section>
+        <section id="misc">
+            <h2>Miscellaneous</h2>
+            <ul>
+                <li>This website was (mostly) designed by claude-3.5-sonnet.
+                </li>
+                <li>I'm a player of <a
+                        href="https://en.wikipedia.org/wiki/Go_(game)">Go</a>
+                    and always looking to improve. AlphaGo is one of my
+                    motivations to study AI.</li>
+                <li>Besides my academic pursuits, I enjoy learning across
+                    different fields - everything from the humanities and
+                    non-fiction (literature, economics, history, etc.) to
+                    natural sciences (physics, linguistics, etc.) through books,
+                    podcasts, and documentaries. I want to understand
+                    perspectives and life experiences of people from different
+                    backgrounds, especially minority groups.</li>
+            </ul>
+        </section>
 </body>
+
 </html>
