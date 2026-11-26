@@ -159,6 +159,23 @@
             font-size: 0.9em;
         }
 
+        .fn-ref {
+            font-size: 0.75em;
+            line-height: 0;
+        }
+
+        .footnotes {
+            font-size: 0.9em;
+            color: #666;
+            border-top: 1px solid #ddd;
+            margin-top: 1.5em;
+            padding-top: 0.5em;
+        }
+
+        .footnotes :target {
+            background-color: #fff6d5;
+        }
+
         .publication .footnote {
             font-size: 0.9em;
             color: #666;
@@ -206,7 +223,13 @@
             <a href="CV.pdf" target="_blank">View my CV</a>.
         </p>
 
-        <p>I'm currently interested in empirical AI safety. I was trained as a theorist, but the current acceleration in AI capabilities convinces me that mitigating AI risks is more urgent than understanding traditional theoretical objects.</p>
+        <p>My research interest is technical AI safety. I work on whatever I think actually works to reduce catastrophic risks<sup class="fn-ref"><a href="#fn1" id="fnref1" aria-describedby="fn1">1</a></sup>, and I believe that achieving this requires a deeper scientific understanding and more rigorous engineering.</p>
+        <p>Some problems I'm currently thinking about:</p>
+        <ol>
+            <li>Where does a model's reward hacking propensity come from, and how can we train models that just don't want to hack in the messy real-world setting?</li>
+            <li>How can we measure and improve models' inner alignment when frontier models are increasingly eval-aware?</li>
+        </ol>
+        <p>I spent most of my undergrad doing theory, but the current acceleration in AI capabilities, and the <a href="https://scottaaronson.blog/?p=10169" target="_blank" rel="noopener noreferrer">Mathocalypse</a>, have convinced me that mitigating AI risks is more urgent than appreciating the beauty of mathematics.<sup class="fn-ref"><a href="#fn2" id="fnref2" aria-describedby="fn2">2</a></sup></p>
         <p>During my undergraduate studies, I was fortunate to learn from great
             people across various fields. I was advised by <a
                 href="https://www.shaofengjiang.cn/">Shaofeng Jiang</a> on
@@ -315,6 +338,19 @@
             </div>
         </div>
     </section>
+
+    <div class="footnotes">
+        <p id="fn1">
+            <sup>1</sup>
+            Or, more pretentiously put: <a href="https://extropians.weidai.com/extropians.96/4304.html" target="_blank" rel="noopener noreferrer">The only reason I'm here is to save humanity.</a>
+            <a href="#fnref1" aria-label="Back to text">↩</a>
+        </p>
+        <p id="fn2">
+            <sup>2</sup>
+            During my PhD campus visit to CMU, <a href="https://zicokolter.com/" target="_blank" rel="noopener noreferrer">Zico Kolter</a> told me something like: “Appreciating the beauty of the world — math, physics — is very good. But now I care about my social responsibility, and I think you should too.”
+            <a href="#fnref2" aria-label="Back to text">↩</a>
+        </p>
+    </div>
 </body>
 
 </html>
